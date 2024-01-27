@@ -1,13 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://dq43acuiulaa"]
+[gd_scene load_steps=5 format=3 uid="uid://dq43acuiulaa"]
 
 [ext_resource type="PackedScene" uid="uid://kmd5km06pq2j" path="res://player/shark.glb" id="1_qmtcg"]
-[ext_resource type="Script" path="res://player/shark.gd" id="2_hn66t"]
+[ext_resource type="Script" path="res://player/Player.gd" id="1_xjxpp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_le6l8"]
 radius = 0.75
 height = 5.0
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="GDScript" id="GDScript_gdo23"]
+script/source = "extends Node3D
+
+
+func _ready():
+	$AnimationPlayer.get_animation(\"Armature|ArmatureAction\").set_loop_mode(Animation.LoopMode.LOOP_LINEAR)
+	$AnimationPlayer.play(\"Armature|ArmatureAction\")
+"
+
+[node name="Player" type="RigidBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+mass = 1000.0
+linear_damp = 0.5
+angular_damp = 0.5
+script = ExtResource("1_xjxpp")
+force = 20000.0
+rotation_force = 2000.0
+air_controll = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
@@ -16,5 +34,5 @@ shape = SubResource("CapsuleShape3D_le6l8")
 [node name="Pivot" type="Node3D" parent="."]
 
 [node name="Shark" parent="Pivot" instance=ExtResource("1_qmtcg")]
-transform = Transform3D(0.006, 0, 0, 0, 0.006, 0, 0, 0, 0.006, 0, 0, 0)
-script = ExtResource("2_hn66t")
+transform = Transform3D(-0.006, 0, -5.24537e-10, 0, 0.006, 0, 5.24537e-10, 0, -0.006, 0, 0, 0)
+script = SubResource("GDScript_gdo23")

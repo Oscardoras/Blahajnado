@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://cverggveh70cv"]
+
+[ext_resource type="Texture2D" uid="uid://uea3d6y1j0ya" path="res://level/smoke.png" id="1_0hxqa"]
+[ext_resource type="Script" path="res://level/Tornado.gd" id="1_kgyga"]
+
+[sub_resource type="Curve" id="Curve_w82fh"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_3u0nu"]
+max_value = 3.0
+_data = [Vector2(0, 3), 0.0, 0.0, 0, 0, Vector2(1, 3), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_tdmal"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_ibicn"]
+curve_x = SubResource("Curve_w82fh")
+curve_y = SubResource("Curve_3u0nu")
+curve_z = SubResource("Curve_tdmal")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3tbjv"]
+particle_flag_rotate_y = true
+angle_max = 360.0
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+angular_velocity_min = 1000.0
+angular_velocity_max = 1000.0
+orbit_velocity_curve = SubResource("CurveXYZTexture_ibicn")
+gravity = Vector3(0, 0, 0)
+turbulence_noise_strength = 20.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gt37w"]
+transparency = 1
+albedo_texture = ExtResource("1_0hxqa")
+
+[sub_resource type="QuadMesh" id="QuadMesh_j1ffr"]
+material = SubResource("StandardMaterial3D_gt37w")
+size = Vector2(50, 50)
+
+[sub_resource type="FogMaterial" id="FogMaterial_rnkex"]
+density = 0.1
+albedo = Color(0.605162, 0.755624, 1, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_heefh"]
+radius = 50.0
+height = 150.0
+
+[node name="Tornado" type="Area3D"]
+script = ExtResource("1_kgyga")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="GPUParticles" type="GPUParticles3D" parent="Pivot"]
+amount = 100
+lifetime = 10.0
+visibility_aabb = AABB(-25, -20, -25, 50, 100, 50)
+process_material = SubResource("ParticleProcessMaterial_3tbjv")
+draw_pass_1 = SubResource("QuadMesh_j1ffr")
+
+[node name="FogVolume" type="FogVolume" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 0)
+size = Vector3(50, 100, 50)
+shape = 2
+material = SubResource("FogMaterial_rnkex")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
+shape = SubResource("CapsuleShape3D_heefh")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

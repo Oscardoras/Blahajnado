@@ -1,19 +1,52 @@
-[gd_scene load_steps=3 format=3 uid="uid://655liq35c05n"]
+[gd_scene load_steps=9 format=3 uid="uid://655liq35c05n"]
 
 [ext_resource type="PackedScene" uid="uid://dq43acuiulaa" path="res://player/Player.tscn" id="1_36glj"]
+[ext_resource type="PackedScene" uid="uid://ignpdv10rx52" path="res://addons/boujie_water_shader/prefabs/deep_ocean.tscn" id="2_lpp6o"]
+[ext_resource type="Script" path="res://level/Camera.gd" id="3_oc32q"]
+[ext_resource type="PackedScene" uid="uid://cverggveh70cv" path="res://level/Tornado.tscn" id="4_t40a8"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_rf86w"]
+rayleigh_color = Color(0.541176, 0.690196, 1, 1)
+mie_color = Color(0.835294, 0.713726, 0.443137, 1)
+ground_color = Color(0, 0.0470588, 0.254902, 1)
+energy_multiplier = 3.5
+
+[sub_resource type="Sky" id="Sky_cetw4"]
+sky_material = SubResource("PhysicalSkyMaterial_rf86w")
 
 [sub_resource type="Environment" id="Environment_npvau"]
 background_mode = 2
+sky = SubResource("Sky_cetw4")
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.001
+volumetric_fog_length = 500.0
+
+[sub_resource type="FogMaterial" id="FogMaterial_mlcnm"]
+density = 0.05
+albedo = Color(0, 0.501961, 1, 1)
 
 [node name="Level" type="Node3D"]
-
-[node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
 [node name="Player" parent="." instance=ExtResource("1_36glj")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_npvau")
 
-[node name="DirectionalLight" type="DirectionalLight3D" parent="WorldEnvironment"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+
+[node name="DeepOcean" parent="." instance=ExtResource("2_lpp6o")]
+far_edge = 4000
+
+[node name="FogVolume" type="FogVolume" parent="DeepOcean"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -500, 0)
+size = Vector3(1000, 1000, 1000)
+material = SubResource("FogMaterial_mlcnm")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 3, 6)
+script = ExtResource("3_oc32q")
+speed = 5.0
+
+[node name="Tornado" parent="." instance=ExtResource("4_t40a8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)

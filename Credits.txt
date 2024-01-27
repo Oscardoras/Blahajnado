@@ -1,1 +1,4 @@
 https://sketchfab.com/3d-models/shark-5d5fc65b6b514e2cb8c3fbc04791a89a CC Attribution
+https://godotengine.org/asset-library/asset/2070 MIT
+https://godotengine.org/asset-library/asset/579 MIT
+https://www.kenney.nl/assets/particle-pack CC0
