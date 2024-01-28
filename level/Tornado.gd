@@ -1,10 +1,11 @@
 extends Area3D
 
 
+@export var speed = 1.
 var direction: Vector2
 
 func _ready():
-	direction = Vector2(-1+randf()*2, -1+randf()*2)
+	direction = Vector2((-0.5+randf())*2*speed, (-0.5+randf())*2*speed)
 
 func _on_body_entered(body):
 	if body is Player:

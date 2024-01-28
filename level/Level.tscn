@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://655liq35c05n"]
+[gd_scene load_steps=10 format=3 uid="uid://655liq35c05n"]
 
 [ext_resource type="PackedScene" uid="uid://dq43acuiulaa" path="res://player/Player.tscn" id="1_36glj"]
 [ext_resource type="PackedScene" uid="uid://ignpdv10rx52" path="res://addons/boujie_water_shader/prefabs/deep_ocean.tscn" id="2_lpp6o"]
 [ext_resource type="Script" path="res://level/Camera.gd" id="3_oc32q"]
 [ext_resource type="PackedScene" uid="uid://cverggveh70cv" path="res://level/Tornado.tscn" id="4_t40a8"]
+[ext_resource type="Script" path="res://level/GameManager.gd" id="6_1kkdr"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_rf86w"]
 rayleigh_color = Color(0.541176, 0.690196, 1, 1)
@@ -26,6 +27,7 @@ density = 0.05
 albedo = Color(0, 0.501961, 1, 1)
 
 [node name="Level" type="Node3D"]
+script = ExtResource("6_1kkdr")
 
 [node name="Player" parent="." instance=ExtResource("1_36glj")]
 
@@ -45,8 +47,28 @@ material = SubResource("FogMaterial_mlcnm")
 
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 3, 6)
+current = true
 script = ExtResource("3_oc32q")
 speed = 5.0
 
 [node name="Tornado" parent="." instance=ExtResource("4_t40a8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -393.61, 0, -50)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 280.0
+offset_bottom = 133.0
+
+[node name="Score" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 20.0
+offset_right = 66.0
+offset_bottom = 43.0
+text = "Score"
+
+[node name="NPCs" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.521456, 0.853278, 0, -0.853278, 0.521456, 0, 66.1727, 0)

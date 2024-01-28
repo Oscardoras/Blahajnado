@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dq43acuiulaa"]
+[gd_scene load_steps=7 format=3 uid="uid://dq43acuiulaa"]
 
 [ext_resource type="PackedScene" uid="uid://kmd5km06pq2j" path="res://player/shark.glb" id="1_qmtcg"]
 [ext_resource type="Script" path="res://player/Player.gd" id="1_xjxpp"]
@@ -16,6 +16,12 @@ func _ready():
 	$AnimationPlayer.play(\"Armature|ArmatureAction\")
 "
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_o3v40"]
+radius = 1.5
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_k0fas"]
+points = PackedVector3Array(0, 0, 0, -2.5, -2.5, -5, -2.5, 2.5, -5, 2.5, 2.5, -5, 2.5, -2.5, -5)
+
 [node name="Player" type="RigidBody3D"]
 axis_lock_angular_x = true
 axis_lock_angular_z = true
@@ -25,9 +31,10 @@ angular_damp = 0.5
 script = ExtResource("1_xjxpp")
 force = 20000.0
 rotation_force = 2000.0
+boost_force = 30000.0
 air_controll = 0.5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_le6l8")
 
@@ -36,3 +43,18 @@ shape = SubResource("CapsuleShape3D_le6l8")
 [node name="Shark" parent="Pivot" instance=ExtResource("1_qmtcg")]
 transform = Transform3D(-0.006, 0, -5.24537e-10, 0, 0.006, 0, 5.24537e-10, 0, -0.006, 0, 0, 0)
 script = SubResource("GDScript_gdo23")
+
+[node name="Mouth" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Mouth"]
+shape = SubResource("SphereShape3D_o3v40")
+
+[node name="Detector" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Detector"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_k0fas")
+
+[connection signal="body_entered" from="Mouth" to="." method="_on_body_entered"]

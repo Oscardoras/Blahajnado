@@ -52,6 +52,7 @@ height = 150.0
 
 [node name="Tornado" type="Area3D"]
 script = ExtResource("1_kgyga")
+speed = 10.0
 
 [node name="Pivot" type="Node3D" parent="."]
 
