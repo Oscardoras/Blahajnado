@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dq43acuiulaa"]
+[gd_scene load_steps=8 format=3 uid="uid://dq43acuiulaa"]
 
 [ext_resource type="PackedScene" uid="uid://kmd5km06pq2j" path="res://player/shark.glb" id="1_qmtcg"]
 [ext_resource type="Script" path="res://player/Player.gd" id="1_xjxpp"]
+[ext_resource type="AudioStream" uid="uid://b032gx6rfcvd2" path="res://player/Eating sound.mp3" id="3_8f8ej"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_le6l8"]
 radius = 0.75
@@ -31,7 +32,7 @@ angular_damp = 0.5
 script = ExtResource("1_xjxpp")
 force = 20000.0
 rotation_force = 2000.0
-boost_force = 30000.0
+boost_force = 50000.0
 air_controll = 0.5
 
 [node name="CollisionShape" type="CollisionShape3D" parent="."]
@@ -56,5 +57,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 [node name="CollisionShape" type="CollisionShape3D" parent="Detector"]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_k0fas")
+
+[node name="Eating" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_8f8ej")
 
 [connection signal="body_entered" from="Mouth" to="." method="_on_body_entered"]

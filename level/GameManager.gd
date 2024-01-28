@@ -3,19 +3,19 @@ extends Node3D
 
 @export var npcs: int = 100
 @export var area_size = 250.
-@export var reticle_delay = 1.
-var reticle_time = 0.
+@export var tornados: int = 5
 var score: int = 0
 var time = 0.
 
 func _ready():
-	pass
+	for i in range(tornados):
+		var tornado = preload("res://level/Tornado.tscn").instantiate()
+		$Tornados.add_child(tornado)
+		tornado.position = Vector3((-0.5+randf())*2*area_size, 0, (-0.5+randf())*2*area_size)
 
 func _process(delta):
 	time += delta
 	
-	if reticle_time > 0.:
-		reticle_time -= delta
 	$Control/Score.text = "Score: " + str(score)
 	
 	if $NPCs.get_child_count() < npcs:
@@ -30,7 +30,6 @@ func _process(delta):
 
 func new_kill():
 	score += 1
-	reticle_time = reticle_delay
 
 func get_wave(x, level):
 	return - fmod(time + 0.3*x, 60.) - level * 60

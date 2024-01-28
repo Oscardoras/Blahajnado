@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dnfd1286rxped"
+path="res://.godot/imported/Waves sound.mp3-e29f2d79522f37bb813e3ef5019b4b17.mp3str"
+
+[deps]
+
+source_file="res://level/Waves sound.mp3"
+dest_files=["res://.godot/imported/Waves sound.mp3-e29f2d79522f37bb813e3ef5019b4b17.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

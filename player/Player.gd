@@ -53,6 +53,7 @@ func _physics_process(delta):
 
 func _on_body_entered(body):
 	if body is NPC:
+		$Eating.play()
 		get_node("/root/Level").new_kill()
 		body.queue_free()
 

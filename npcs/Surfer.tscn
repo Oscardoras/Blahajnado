@@ -54,6 +54,7 @@ script = ExtResource("1_pmpgl")
 direction = Vector3(-1, 0, -8)
 
 [node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
 
 [node name="Surfer" type="MeshInstance3D" parent="Pivot"]
 transform = Transform3D(2, 0, 0, 0, -8.74228e-08, 2, 0, -2, -8.74228e-08, 0, 0, 0)

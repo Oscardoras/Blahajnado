@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://cverggveh70cv"]
+[gd_scene load_steps=13 format=3 uid="uid://cverggveh70cv"]
 
 [ext_resource type="Texture2D" uid="uid://uea3d6y1j0ya" path="res://level/smoke.png" id="1_0hxqa"]
 [ext_resource type="Script" path="res://level/Tornado.gd" id="1_kgyga"]
+[ext_resource type="AudioStream" uid="uid://2cfngl0obwpb" path="res://level/Tornado sound.mp3" id="3_xvnip"]
 
 [sub_resource type="Curve" id="Curve_w82fh"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -72,6 +73,11 @@ material = SubResource("FogMaterial_rnkex")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
 shape = SubResource("CapsuleShape3D_heefh")
+
+[node name="Wind" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 0)
+stream = ExtResource("3_xvnip")
+volume_db = 10.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
